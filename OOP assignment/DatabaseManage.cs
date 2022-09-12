@@ -20,7 +20,7 @@ namespace OOP_assignment
                     insert += "PlayerScore (SPlayerDate,Score)";
                     break;
                 case tables.info:
-                    insert += "PlayerInfo (PlayerName,PlayerEmail,PlayerPassword)";
+                    insert += "PlayerInfo (PlayerName, PlayerEmail, PlayerPassword)";
                     break;
             }
             insert += " VALUES(" + what + ");";

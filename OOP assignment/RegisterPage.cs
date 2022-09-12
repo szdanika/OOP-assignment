@@ -29,7 +29,7 @@ namespace OOP_assignment
         private void button1_Click(object sender, EventArgs e)
         {//Checking and inserting into table
             DatabaseManage dm = new DatabaseManage();;
-            string asd = "nev,email,jelsz";
+            string asd = "'nev','email','jelsz'";
             dm.Insert(tables.info, asd);
         }
     }
