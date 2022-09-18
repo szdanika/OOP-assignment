@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OOP_assignment.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,7 +12,7 @@ using System.Windows.Forms;
 
 namespace OOP_assignment
 {
-    public partial class RegisterPage : Form
+    public partial class RegisterPage : SuperClass
     {
         public RegisterPage()
         {
@@ -31,23 +32,24 @@ namespace OOP_assignment
         {//Checking and inserting into table
             try
             {
-                DatabaseManage dm = new DatabaseManage();;
-                string asd = "'nev','email','jelsz'";
-                dm.Update();
+                DatabaseManage dm = new DatabaseManage();
+                CheckData();
+                string data = "'"+textBox1.Text + "','"+textBox2.Text + "','"+textBox3.Text + "'";
+                dm.Insert(Tables.info, data);
+                ChangePage(new LogInPage(), this);
             }
-            catch(IndexOutOfRangeException)
+            catch(InformationIsNotFilledException exc)
             {
-
+                label5.Text = exc.Message;
+                label5.Visible = true;
             }
             
         }
 
         private void CheckData()
         {
-            if(textBox1 == null || textBox2 == null || textBox3 == null)
-            {
-                throw new IndexOutOfRangeException(); // placeholder for the real exception
-            }
+            if(textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "")
+                throw new Exceptions.InformationIsNotFilledException();
         }
     }
 }

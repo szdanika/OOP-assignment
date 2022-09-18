@@ -113,8 +113,10 @@
             this.label5.ForeColor = System.Drawing.Color.IndianRed;
             this.label5.Location = new System.Drawing.Point(358, 110);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(0, 20);
+            this.label5.Size = new System.Drawing.Size(33, 20);
             this.label5.TabIndex = 8;
+            this.label5.Text = "exc";
+            this.label5.Visible = false;
             // 
             // RegisterPage
             // 

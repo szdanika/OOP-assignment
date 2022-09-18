@@ -8,30 +8,30 @@ using System.Data.SQLite;
 
 namespace OOP_assignment
 {
-    public enum tables { score, info}; // The 2 types the tables can be
+    public enum Tables { score, info}; // The 2 types the Tables can be
     internal class DatabaseManage
     {
-
-        public string MakeStringInsert(tables where, string what)
+        private string DatabaseName = "Data Source=customers.db; version=3; New=False: Compress=true";
+        public string MakeStringInsert(Tables where, string what)
         {
             string insert = "INSERT INTO ";
             switch (where)
             {
-                case tables.score:
+                case Tables.score:
                     insert += "PlayerScore (SPlayerDate,Score)";
                     break;
-                case tables.info:
+                case Tables.info:
                     insert += "PlayerInfo (PlayerName, PlayerEmail, PlayerPassword)";
                     break;
             }
             insert += " VALUES(" + what + ");";
             return insert;
         }
-        public void Insert(tables where,string what)
+        public void Insert(Tables where,string what)
         {
 
             //Connecting
-            SQLiteConnection conn = new SQLiteConnection("Data Source=customers.db; version=3; New=False: Compress=true");
+            SQLiteConnection conn = new SQLiteConnection(DatabaseName);
             conn.Open();
 
             SQLiteCommand sqlcommand = conn.CreateCommand();
@@ -43,16 +43,16 @@ namespace OOP_assignment
             conn.Close();
         }
 
-        public string MakeStringUpdate(tables where, string[] values)
+        public string MakeStringUpdate(Tables where, string[] values)
         {
             string update = "UPDATE ";
 
             switch (where)
             {
-                case tables.score:
+                case Tables.score:
                     update += "PlayerScore";
                     break;
-                case tables.info:
+                case Tables.info:
                     update += "PlayerInfo SET PlayerName = '" + values[0] + "', PlayerEmail = '" + values[1] + "', PlayerPassword = '" + values[2] + "'";
                     break;
             }
@@ -63,16 +63,34 @@ namespace OOP_assignment
         public void Update()
         {
             //Connecting
-            SQLiteConnection conn = new SQLiteConnection("Data Source=customers.db; version=3; New=False: Compress=true");
+            SQLiteConnection conn = new SQLiteConnection(DatabaseName);
             conn.Open();
             SQLiteCommand sqlcommand = conn.CreateCommand();
 
             string[] temp = { "FelhNev","FelhEmail","FelhJelsz"};
-            sqlcommand.CommandText = MakeStringUpdate(tables.info, temp);
+            sqlcommand.CommandText = MakeStringUpdate(Tables.info, temp);
 
             sqlcommand.ExecuteNonQuery();
 
             conn.Close();
         } 
+        public int Login(string name, string password)
+        {
+            DataTable dt = new DataTable();
+            SQLiteConnection conn = new SQLiteConnection(DatabaseName);
+            conn.Open();
+            SQLiteCommand sqlcommand = conn.CreateCommand();
+            //sqlcommand.CommandText = MakeStringRequestOne(from, what, where);
+            sqlcommand.CommandText = "SELECT PlayerId FROM PlayerInfo WHERE PlayerName = '"+ name+"' AND PlayerPassword = '"+password+"';";
+
+            SQLiteDataReader reader = sqlcommand.ExecuteReader();
+
+            dt.Load(reader);
+            DataRow row = dt.Rows[0];
+            int back = Convert.ToInt32(row["PlayerId"]);
+            conn.Close();
+            return back;
+        }
+        
     }
 }
