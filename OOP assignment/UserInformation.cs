@@ -10,5 +10,6 @@ namespace OOP_assignment
     {
         public static string UserName { get; set; }
         public static int UserId { get; set; }
+        public static string UserEmail { get; set; }
     }
 }

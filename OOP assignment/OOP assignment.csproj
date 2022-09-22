@@ -66,8 +66,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseManage.cs" />
+    <Compile Include="Exceptions\AlreadyUsedUsernameException.cs" />
     <Compile Include="Exceptions\IncorrectInformationException.cs" />
     <Compile Include="Exceptions\InformationIsNotFilledException.cs" />
+    <Compile Include="HistoryPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HistoryPage.Designer.cs">
+      <DependentUpon>HistoryPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="LogInPage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,6 +105,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserInformation.cs" />
+    <EmbeddedResource Include="HistoryPage.resx">
+      <DependentUpon>HistoryPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LogInPage.resx">
       <DependentUpon>LogInPage.cs</DependentUpon>
     </EmbeddedResource>

@@ -20,12 +20,8 @@ namespace OOP_assignment
         }
 
         private void label4_Click(object sender, EventArgs e)
-        {// moving to the registration form.
-
-            this.Hide();
-            LogInPage logPage = new LogInPage();
-            logPage.ShowDialog();
-            this.Close();
+        {
+            ChangePage(new LogInPage(), this);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -38,7 +34,7 @@ namespace OOP_assignment
                 dm.Insert(Tables.info, data);
                 ChangePage(new LogInPage(), this);
             }
-            catch(InformationIsNotFilledException exc)
+            catch(Exception exc) when ( exc is AlreadyUsedUsernameException || exc is InformationIsNotFilledException)
             {
                 label5.Text = exc.Message;
                 label5.Visible = true;
@@ -48,8 +44,11 @@ namespace OOP_assignment
 
         private void CheckData()
         {
+            DatabaseManage dm = new DatabaseManage();
             if(textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "")
                 throw new Exceptions.InformationIsNotFilledException();
+            if (dm.CheckIfNameUsed(textBox1.Text))
+                throw new AlreadyUsedUsernameException();
         }
     }
 }
