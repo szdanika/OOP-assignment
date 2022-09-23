@@ -15,5 +15,13 @@ namespace OOP_assignment
             to.ShowDialog();
             from.Close();
         }
+        protected string GetDirectory()
+        {
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+            folderBrowserDialog.ShowDialog();
+            if (folderBrowserDialog.SelectedPath == "")
+                throw new Exceptions.IncorrectInformationException();
+            return folderBrowserDialog.SelectedPath;
+        }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SQLite;
 using System.Xml.Linq;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 
 namespace OOP_assignment
 {
@@ -45,7 +46,7 @@ namespace OOP_assignment
             conn.Close();
         }
 
-        public string MakeStringUpdate(Tables where, string[] values)
+        public string MakeStringUpdate(Tables where, string[] values, int userId)
         {
             string update = "UPDATE ";
 
@@ -58,18 +59,18 @@ namespace OOP_assignment
                     update += "PlayerInfo SET PlayerName = '" + values[0] + "', PlayerEmail = '" + values[1] + "', PlayerPassword = '" + values[2] + "'";
                     break;
             }
-            update += " Where PlayerId = " + UserInformation.UserId;
+            update += " Where PlayerId = " + userId;
 
             return update;
         }
-        public void Update(Tables where, string[] what)
+        public void Update(Tables where, string[] what, int userId)
         {
             //Connecting
             SQLiteConnection conn = new SQLiteConnection(DatabaseName);
             conn.Open();
             SQLiteCommand sqlcommand = conn.CreateCommand();
 
-            sqlcommand.CommandText = MakeStringUpdate(where, what);
+            sqlcommand.CommandText = MakeStringUpdate(where, what, userId);
 
             sqlcommand.ExecuteNonQuery();
 
@@ -105,7 +106,8 @@ namespace OOP_assignment
             SQLiteDataReader reader = sqlcommand.ExecuteReader();
 
             dt.Load(reader);
-            DataRow row = dt.Rows[0];
+            DataRow row;
+            try { row = dt.Rows[0]; } catch (IndexOutOfRangeException) { throw new Exceptions.IncorrectInformationException(); }
             int back = Convert.ToInt32(row["Counted"]);
             conn.Close();
             return back == 1;

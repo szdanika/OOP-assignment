@@ -61,10 +61,7 @@ namespace OOP_assignment
         private void button4_Click(object sender, EventArgs e)
         {//refreshing the ranking table
             dataGridView1.Rows.Clear();
-            DatabaseManage dm = new DatabaseManage();
-            string select = "SELECT PlayerName as PN, PlayerEmail AS PE, sum(Score) as S ";
-            string orderBy = "ORDER BY Score", groupBy = " GROUP BY PlayerId ", where =" WHERE PlayerId = SPlayerId ";
-            DataTable dt = dm.Select(select, Tables.info, where, groupBy, orderBy);
+            DataTable dt = getTheDataTable();
             foreach (DataRow dr in dt.Rows)
             {
                 dataGridView1.Rows.Add(dr["PN"].ToString(), dr["PE"].ToString(), dr["S"].ToString());
@@ -74,6 +71,27 @@ namespace OOP_assignment
         private void button6_Click(object sender, EventArgs e)
         {//moving to history page
             ChangePage(new HistoryPage(), this);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {//puting the list in a pdf
+            try
+            {
+                DataTable dt = getTheDataTable();
+                string directory = GetDirectory();
+                MakingPdf makepdf = new MakingPdf();
+                string[] pef = { "PN", "PE", "S" };
+                makepdf.MakePdf(dt, directory, "RankingList", "Ranking List", pef);
+            }
+            catch(Exception)
+            { }
+        }
+        DataTable getTheDataTable()
+        {
+            DatabaseManage dm = new DatabaseManage();
+            string select = "SELECT PlayerName as PN, PlayerEmail AS PE, sum(Score) as S ";
+            string orderBy = "ORDER BY Score", groupBy = " GROUP BY PlayerId ", where = " WHERE PlayerId = SPlayerId ";
+            return dm.Select(select, Tables.info, where, groupBy, orderBy);
         }
     }
 }

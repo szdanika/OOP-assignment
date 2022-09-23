@@ -40,6 +40,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -112,7 +114,7 @@
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(200, 26);
             this.dateTimePicker2.TabIndex = 4;
-            this.dateTimePicker2.Value = new System.DateTime(2022, 9, 21, 0, 0, 0, 0);
+            this.dateTimePicker2.Value = new System.DateTime(2022, 9, 21, 23, 59, 0, 0);
             // 
             // label1
             // 
@@ -144,18 +146,42 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(337, 84);
+            this.button4.Location = new System.Drawing.Point(290, 84);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(131, 34);
             this.button4.TabIndex = 8;
             this.button4.Text = "Export to pdf";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(616, 92);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(160, 26);
+            this.button5.TabIndex = 9;
+            this.button5.Text = "All time to pdf";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.Red;
+            this.label3.Location = new System.Drawing.Point(34, 84);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(33, 20);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "exc";
+            this.label3.Visible = false;
             // 
             // HistoryPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label2);
@@ -189,5 +215,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn AddingDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn Score;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Label label3;
     }
 }
