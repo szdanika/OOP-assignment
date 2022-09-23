@@ -43,7 +43,7 @@ namespace OOP_assignment
             {
                 IsEverythingOkey();
                 string[] values = { textBox1.Text, textBox2.Text, textBox3.Text };
-                dm.Update(Tables.info, values);
+                dm.Update(Tables.info, values, UserInformation.UserId);
             }
             catch(Exception exc) when (exc is InformationIsNotFilledException ||
                                        exc is AlreadyUsedUsernameException)
