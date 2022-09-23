@@ -1,4 +1,4 @@
-﻿using OOP_assignment.Exceptions;
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DatabaseManager;
 
 namespace OOP_assignment
 {
@@ -46,7 +47,7 @@ namespace OOP_assignment
         {
             DatabaseManage dm = new DatabaseManage();
             if(textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "")
-                throw new Exceptions.InformationIsNotFilledException();
+                throw new InformationIsNotFilledException();
             if (dm.CheckIfNameUsed(textBox1.Text))
                 throw new AlreadyUsedUsernameException();
         }

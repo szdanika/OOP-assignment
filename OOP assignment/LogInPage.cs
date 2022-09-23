@@ -1,5 +1,4 @@
-﻿using OOP_assignment.Exceptions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DatabaseManager;
 
 namespace OOP_assignment
 {
@@ -28,7 +28,8 @@ namespace OOP_assignment
         {
             try
             {
-                UserInformation.UserId = CheckInformation();
+                DatabaseManager.DatabaseManage dm = new DatabaseManager.DatabaseManage();
+                UserInformation.UserId = dm.Login(textBox1.Text, textBox2.Text); //CheckInformation();
                 ChangePage(new MainPage(), this);
             }
             catch(Exception  exc) when (exc is InformationIsNotFilledException || exc is IncorrectInformationException)
@@ -39,17 +40,13 @@ namespace OOP_assignment
         }
         private int CheckInformation()
         {
-            DatabaseManage dm = new DatabaseManage();
+            //DatabaseManager.DatabaseManage dm = new DatabaseManager.DatabaseManage();
             //Check if the fields are filled
             if (textBox1.Text == "" || textBox2.Text == "")
                 throw new InformationIsNotFilledException();
 
             //check if the information is correct
-            int id = dm.Login(textBox1.Text, textBox2.Text);
-            if (id == 0)
-                throw new IncorrectInformationException();
-
-            return id;
+            return dm.Login(textBox1.Text, textBox2.Text); 
 
         }
     }

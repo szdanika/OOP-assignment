@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DatabaseManager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ namespace OOP_assignment
 {
     public class SuperClass : Form
     {
+        public DatabaseManager.DatabaseManage dm = new DatabaseManager.DatabaseManage();
         protected void ChangePage(Form to, Form from)
         {
             from.Hide();
@@ -20,7 +22,7 @@ namespace OOP_assignment
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
             folderBrowserDialog.ShowDialog();
             if (folderBrowserDialog.SelectedPath == "")
-                throw new Exceptions.IncorrectInformationException();
+                throw new IncorrectInformationException();
             return folderBrowserDialog.SelectedPath;
         }
     }

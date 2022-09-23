@@ -1,4 +1,4 @@
-﻿using OOP_assignment.Exceptions;
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DatabaseManager;
+using PdfManager;
 
 namespace OOP_assignment
 {
@@ -61,7 +63,7 @@ namespace OOP_assignment
         private void button4_Click(object sender, EventArgs e)
         {//refreshing the ranking table
             dataGridView1.Rows.Clear();
-            DataTable dt = getTheDataTable();
+            DataTable dt = GetTheDataTable();
             foreach (DataRow dr in dt.Rows)
             {
                 dataGridView1.Rows.Add(dr["PN"].ToString(), dr["PE"].ToString(), dr["S"].ToString());
@@ -77,7 +79,7 @@ namespace OOP_assignment
         {//puting the list in a pdf
             try
             {
-                DataTable dt = getTheDataTable();
+                DataTable dt = GetTheDataTable();
                 string directory = GetDirectory();
                 MakingPdf makepdf = new MakingPdf();
                 string[] pef = { "PN", "PE", "S" };
@@ -86,7 +88,7 @@ namespace OOP_assignment
             catch(Exception)
             { }
         }
-        DataTable getTheDataTable()
+        DataTable GetTheDataTable()
         {
             DatabaseManage dm = new DatabaseManage();
             string select = "SELECT PlayerName as PN, PlayerEmail AS PE, sum(Score) as S ";
