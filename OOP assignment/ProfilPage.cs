@@ -14,7 +14,6 @@ namespace OOP_assignment
 {
     public partial class ProfilPage : SuperClass 
     {
-        public int PId { get; set; }
         public ProfilPage()
         {
             InitializeComponent();
@@ -38,8 +37,7 @@ namespace OOP_assignment
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {//Changeing something need to catch the eh part 
-            DatabaseManage dm = new DatabaseManage();
+        {//
             try
             {
                 IsEverythingOkey();
@@ -55,7 +53,6 @@ namespace OOP_assignment
         }
         void IsEverythingOkey()
         {
-            DatabaseManage dm = new DatabaseManage();
             if(textBox1 == null || textBox2 == null || textBox3 == null)
                 throw new InformationIsNotFilledException();
 

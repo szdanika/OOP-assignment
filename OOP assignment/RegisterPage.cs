@@ -48,7 +48,9 @@ namespace OOP_assignment
             DatabaseManage dm = new DatabaseManage();
             if(textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "")
                 throw new InformationIsNotFilledException();
-            if (dm.CheckIfNameUsed(textBox1.Text))
+            if (dm.IsItUsed(textBox1.Text,Records.name))
+                throw new AlreadyUsedUsernameException();
+            if(dm.IsItUsed(textBox2.Text,Records.email))
                 throw new AlreadyUsedUsernameException();
         }
     }
